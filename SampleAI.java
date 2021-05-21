@@ -339,3 +339,4 @@ public class SampleAI extends LaboAI {
     }
 
 }
+// 一番下だよ
