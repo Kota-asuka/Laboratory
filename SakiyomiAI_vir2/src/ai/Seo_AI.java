@@ -231,9 +231,13 @@ public class Seo_AI {
     // 相手の手番
     protected double ab_MIN(Game game, int deep, double alpha, double beta){
         // 最終場面なら評価値を返す
+        // 駒がなくて相手は打てないが自分は打てる場合は、ab_MAXへ飛ばす
         if(deep == 0 || game.getGameState() == Game.STATE_SEASON_END){
             return evaluate(game);
+        }else if(!game.getResourcesOf(this.enemyNumber).hasWorker()){
+            return ab_MAX(game, deep, alpha, beta);
         }
+        
         // 次のゲーム状態
         Game nextGame;
         // 評価値
@@ -260,9 +264,13 @@ public class Seo_AI {
     // 自分の手番
     protected double ab_MAX(Game game, int deep, double alpha, double beta){
         // 最終場面なら評価値を返す
+        // 駒がなくて相手は打てないが自分は打てる場合は、ab_MAXへ飛ばす
         if(deep == 0 || game.getGameState() == Game.STATE_SEASON_END){
             return evaluate(game);
+        }else if(!game.getResourcesOf(this.enemyNumber).hasWorker()){
+            return ab_MIN(game, deep, alpha, beta);
         }
+        
         // 次のゲーム状態
         Game nextGame;
         // 評価値
